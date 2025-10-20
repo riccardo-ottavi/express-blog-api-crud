@@ -46,7 +46,35 @@ function store(req, res) {
 }
 
 function update(req, res) {
-    res.send("Modifica integrale del post: " + req.params.id)
+   // recuperiamo l'id dall' URL e trasformiamolo in numero
+    const id = parseInt(req.params.id)
+
+    // cerchiamo il pizza tramite id
+    const post = postsIndex.find(post => post.id === id);
+
+    // Piccolo controllo
+    if (!post) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "post non trovato"
+        })
+    }
+
+    // Aggiorniamo la pizza
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.ingredients = req.body.ingredients;
+    post.tags = req.body.tags;
+
+    // Controlliamo il menu
+    console.log(postsIndex)
+
+    // Restituiamo la pizza appena aggiornata
+    res.json(post);
+
 }
 
 function modify(req, res) {
