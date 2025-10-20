@@ -11,6 +11,13 @@ const postRouter = require("./routers/posts")
 // usiamo il middleware static di express (per rendere disponibile i file statici)
 app.use(express.static('public'));
 
+//body parser
+app.use(express.json());
+
+// rotte per i post
+app.use("/posts", postRouter);
+
+
 
 // impostiamo la rotta di home
 app.get("/", (req, res) => {
@@ -18,9 +25,6 @@ app.get("/", (req, res) => {
 
     res.send('<h1>Ecco la home della API del nostro blog</h1>')
 })
-
-// rotte per i post
-app.use("/posts", postRouter);
 
 
 // mettiamo in ascolto il server sulla porta definita

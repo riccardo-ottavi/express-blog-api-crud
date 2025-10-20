@@ -3,6 +3,7 @@ const postsIndex = require('../data/index');
 
 function index(req, res) {
     res.json(postsIndex);
+    console.log("ciao ciao")
 };
 
 
@@ -29,7 +30,19 @@ function show(req, res) {
 }
 
 function store(req, res) {
-    res.send("Creazione nuovo post")
+    const newId = postsIndex[postsIndex.length - 1].id +1;
+    
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    }
+    postsIndex.push(newPost)
+    console.log(postsIndex)
+    res.status(201);
+    res.json(newPost)
 }
 
 function update(req, res) {
