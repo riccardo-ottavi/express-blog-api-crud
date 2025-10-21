@@ -11,6 +11,9 @@ const postRouter = require("./routers/posts")
 //importo middleware notFound
 const notFound = require("./middlewares/notFound")
 
+//importo middleware errorServer
+const errorServer = require("./middlewares/errorServer")
+
 
 // usiamo il middleware static di express (per rendere disponibile i file statici)
 app.use(express.static('public'));
@@ -33,6 +36,7 @@ app.get("/", (req, res) => {
 
 //registro il middleware per tutte le rotte 
 app.use(notFound)
+app.use(errorServer)
 
 // mettiamo in ascolto il server sulla porta definita
 app.listen(port, () => {
