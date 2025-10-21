@@ -8,8 +8,8 @@ const port = 3000;
 // importiamo modulo router i post
 const postRouter = require("./routers/posts")
 
-//importo middleware checkRes
-const checkRes = require("./middlewares/checkRes")
+//importo middleware notFound
+const notFound = require("./middlewares/notFound")
 
 
 // usiamo il middleware static di express (per rendere disponibile i file statici)
@@ -18,8 +18,6 @@ app.use(express.static('public'));
 //body parser
 app.use(express.json());
 
-//registro il middleware per tutte le rotte 
-app.use(checkRes)
 
 // rotte per i post
 app.use("/posts", postRouter);
@@ -33,6 +31,8 @@ app.get("/", (req, res) => {
     res.send('<h1>Ecco la home della API del nostro blog</h1>')
 })
 
+//registro il middleware per tutte le rotte 
+app.use(notFound)
 
 // mettiamo in ascolto il server sulla porta definita
 app.listen(port, () => {
